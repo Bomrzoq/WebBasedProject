@@ -278,18 +278,37 @@ var echartsConfig = function() {
 	}
 	if( $('#e_chart_3').length > 0 ){
 		var eChart_3 = echarts.init(document.getElementById('e_chart_3'));
-		var base = +new Date(1968, 9, 3);
-		var oneDay = 24 * 3600 * 1000;
-		var date = [];
+		
+		var lbl = new Array();
+		var cases = new Array();
+		var Death = new Array();
+		var Recovere = new Array();
 
-		var data = [Math.random() * 300];
+		var OurRequest = new XMLHttpRequest();
+		OurRequest.open('GET' , 'https://pomber.github.io/covid19/timeseries.json');
+		OurRequest.onload = function(){
+    	var Data = JSON.parse(OurRequest.responseText);
+    	console.log(Data.China.length);
 
-		for (var i = 1; i < 5000; i++) {
-			var now = new Date(base += oneDay);
-			date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-			data.push(Math.round((Math.random() - 0.5) * 40 + data[i - 1]));
+    	Render(Data);
 		}
+		OurRequest.send();
+
+
+	function Render(info){
+		
+		for(var i = 0 ; i < info.China.length ; i++){
+		   
+			lbl[i] = info.China[i].date;
+			cases[i] = info.China[i].confirmed;
+			Death[i] = info.China[i].deaths;
+			Recovere[i]= info.China[i].recovered;
+		}
+
+
+
 		var option3 = {
+
 			tooltip: {
 				trigger: 'axis',
 				backgroundColor: 'rgba(33,33,33,1)',
@@ -299,7 +318,8 @@ var echartsConfig = function() {
 					type: 'cross',
 					label: {
 						backgroundColor: 'rgba(33,33,33,1)'
-					}
+					},
+				
 				},
 				textStyle: {
 					color: '#fff',
@@ -314,10 +334,10 @@ var echartsConfig = function() {
 			},
 			xAxis: {
 				type: 'category',
-				boundaryGap: false,
-				data: date,
+				boundaryGap: true,
+				data: lbl,
 				axisLine: {
-					show:false
+					show:true
 				},
 				axisLabel: {
 					textStyle: {
@@ -328,11 +348,17 @@ var echartsConfig = function() {
 						fontSize: 12
 					}
 				},
+				
 			},
 			yAxis: {
 				type: 'value',
 				axisLine: {
-						show:false
+						show:true
+				}, 
+				ticks :{
+					beginAtZero: true,
+					max: 100000,
+					stepSize: 10000,
 				},
 				axisLabel: {
 					textStyle: {
@@ -346,29 +372,67 @@ var echartsConfig = function() {
 				splitLine: {
 					show: false,
 				},
-				boundaryGap: [0, '100%']
+				//boundaryGap: [0, '100%'],
 			},
 			series: [
 				{
-					name:'Educattion',
+					name:'Confirmed Cases',
 					type:'line',
 					smooth:true,
 					symbol: 'none',
 					sampling: 'average',
 					itemStyle: {
 						normal: {
-							color: '#667add'
+							color: '#ffa323'
 						}
 					},
 					areaStyle: {
 						"show":false
 					},
-					data: data
+					data: cases,
 				}
-			]
+			, 
+			{
+				name:'Recovered Cases',
+				type:'line',
+				smooth:true,
+				symbol: 'none',
+				sampling: 'average',
+				itemStyle: {
+					normal: {
+						color: '#f4f4f4'
+					}
+				},
+				areaStyle: {
+					"show":false
+				},
+				data: Recovere,
+			},
+			{
+				name:'Death Cases',
+				type:'line',
+				smooth:true,
+				symbol: 'none',
+				sampling: 'average',
+				itemStyle: {
+					normal: {
+						color: '#ee4540'
+					}
+				},
+				areaStyle: {
+					"show":false
+				},
+				data: Death,
+			}
+		]
 		};
 		eChart_3.setOption(option3);
 		eChart_3.resize();
+	
+	
+	}	
+	
+		
 	}
 	if( $('#e_chart_4').length > 0 ){
 		var eChart_4 = echarts.init(document.getElementById('e_chart_4'));
