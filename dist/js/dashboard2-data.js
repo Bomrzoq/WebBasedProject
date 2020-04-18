@@ -1,4 +1,4 @@
-/*Dashboard2 Init*/
+
 "use strict"; 
 
 /*****Ready function start*****/
@@ -228,6 +228,26 @@ var echartsConfig = function() {
 		eChart_1.resize();
 	}
 	if( $('#e_chart_2').length > 0 ){
+        var infected=0;
+        var recovered=0;
+        var deceased=0;
+            
+        var element = document.getElementById("stats");
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) 
+        {
+            var result = JSON.parse(this.responseText);
+            infected = result.infected;
+            recovered = result.recovered;
+            deceased = result.deceased;
+            console.log("Infected: "+infected+", recovered: "+recovered+" Decesed: "+deceased);
+            $(".e_chart_3").load(echartsConfig);
+
+        
+         
+        }
+        
 		var eChart_2 = echarts.init(document.getElementById('e_chart_2'));
 		var option1 = {
 			tooltip: {
@@ -239,43 +259,32 @@ var echartsConfig = function() {
 			},
 			series: [
 				{
-					name:'pie',
+					name:'Today updates',
 					type:'pie',
 					selectedMode: 'single',
-					radius: [0, '30%'],
+					radius: [0, '70%'],
 					color: ['#d36ee8', '#119dd2', '#667add'],
 					label: {
 						normal: {
-							show:false,
+							show:true,
 						}
 					},
+
 					data:[
-						{value:335, name:'1'},
-						{value:679, name:'2'},
-						{value:1548, name:'3', selected:true}
+						{value:deceased, name:'deceased'},
+						{value:recovered, name:'recovered'},
+                            {value:infected, name:'infected'}
 					]
 				},
-				{
-					name:'Radio',
-					type:'pie',
-					radius: ['55%', '80%'],
-					label: {
-						normal: {
-							show:false,
-						}
-					},
-					color: ['#d36ee8', '#119dd2', '#667add'],
-					data:[
-						{value:335, name:'1'},
-						{value:210, name:'2'},
-						{value:434, name:'3'},
-					]
-				}
+				
 			]
 		};
 		eChart_2.setOption(option1);
 		eChart_2.resize();
-	}
+           };
+          xhttp.open("GET","https://api.apify.com/v2/key-value-stores/x4iHxk7TVGI7UxFv6/records/LATEST?disableRedirect=true", true);
+          xhttp.send();
+        }
 	if( $('#e_chart_3').length > 0 ){
 		var eChart_3 = echarts.init(document.getElementById('e_chart_3'));
 		
@@ -306,7 +315,7 @@ var echartsConfig = function() {
 		}
 
 
-
+        
 		var option3 = {
 
 			tooltip: {
@@ -432,7 +441,7 @@ var echartsConfig = function() {
 	
 	}	
 	
-		
+		OurRequest.abort;
 	}
 	if( $('#e_chart_4').length > 0 ){
 		var eChart_4 = echarts.init(document.getElementById('e_chart_4'));
@@ -503,7 +512,7 @@ var echartsConfig = function() {
 		}
 		var app = [];
 		app.timeTicket = setInterval(function() {
-			var value = (Math.random() * 100).toFixed(2) - 0;
+			var value = 100;
 			option4.series[0].data[0].value = value;
 			option4.series[0].axisLine.lineStyle.color[0][0] = value / 100;
 			option4.series[0].axisLine.lineStyle.color[0][1] = detectionData(value);
