@@ -1,5 +1,65 @@
 
-"use strict"; 
+/*Dashboard2 Init*/
+
+// This method is to check if a state has counties in the database and if so, the names and ids of them
+
+
+    fetch("https://maanuj-vora.github.io/Bing-COVID-19-Current-Data/currentData.json")
+        .then(response => response.json())
+        .then(data => {
+            var id = data["id"];
+            var displayName = data["displayName"];
+            var i,j;
+            for(i = 0 ; i < (data["areas"].length) ; i ++){
+                var go = (data['areas'][i]["id"] === "chinamainland");
+                if(go){
+                        var count = 200;
+                        for(j = 0 ; j < 30;j++){
+                           var compare;
+                           var name = data["areas"][i]["areas"][j]["displayName"];
+                            var tableDisplayName = document.getElementById((count++)+"");
+                            compare = name!= null;
+                            if(compare == true)
+                           tableDisplayName.innerHTML = name ;
+                            else    tableDisplayName.innerHTML = "No Data";
+                            
+                            var confirmed = data["areas"][i]["areas"][j]["totalConfirmed"];
+                             var tableTotalConfirmed = document.getElementById((count++)+"");
+                            compare = confirmed != null;
+                            if(compare == true){
+                                  tableTotalConfirmed.innerHTML = confirmed;
+                            }
+                          
+                            else {   tableTotalConfirmed.innerHTML = "No Data";}
+
+                            var deaths = data["areas"][i]["areas"][j]["totalDeaths"];
+                             var tableTotalDeaths = document.getElementById((count++)+"");
+                            compare = deaths != null;
+                            if(compare == true)
+                            tableTotalDeaths.innerHTML = deaths;
+                            else    tableTotalDeaths.innerHTML = "No Data";
+                            
+                            var recover = data["areas"][i]["areas"][j]["totalRecovered"];
+                             var tableTotalRecovered = document.getElementById((count++)+"");
+                            compare = recover != null;
+                            if(compare == true)
+                            tableTotalRecovered.innerHTML= recover;
+                            else    tableTotalRecovered.innerHTML = "No Data";
+                            
+                            var dateUpdate = data["areas"][i]["areas"][j]["lastUpdated"];
+                             var tableLastUpdated = document.getElementById((count++)+"");
+                            compare = dateUpdate != null;
+                            var date = new Date(dateUpdate);
+                            if(compare == true)
+                            tableLastUpdated.innerHTML = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate() ;
+                            else    tableLastUpdated.innerHTML = "No Data";
+                            
+                        }   
+                }
+            }
+            
+        });
+
 
 /*****Ready function start*****/
 $(document).ready(function(){
@@ -684,19 +744,7 @@ var echartsConfig = function() {
 /*****E-Charts function end*****/
 
 /*****Load function start*****/
-$(window).load(function(){
-	window.setTimeout(function(){
-		$.toast({
-			heading: 'Welcome to Elmer',
-			text: 'Use the predefined ones, or specify a custom position object.',
-			position: 'bottom-left',
-			loaderBg:'#f8b32d',
-			icon: 'success',
-			hideAfter: 3500, 
-			stack: 6
-		});
-	}, 3000);
-});
+
 /*****Load function* end*****/
 
 /*****Sparkline function start*****/
@@ -728,6 +776,8 @@ var sparklineLogin = function() {
 			});
 		}	
 }
+
+
 /*****Sparkline function end*****/
 
 /*****Resize function start*****/
@@ -747,3 +797,4 @@ $(window).on("resize", function () {
 sparklineLogin();
 echartsConfig();
 /*****Function Call end*****/
+

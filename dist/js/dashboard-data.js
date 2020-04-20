@@ -181,68 +181,7 @@ var echartsConfig = function() {
 		eChart_2.setOption(option1);
 		eChart_2.resize();
 	}
-	if( $('#e_chart_3').length > 0 ){
-		var eChart_3 = echarts.init(document.getElementById('e_chart_3'));
-		var option3 = {
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)",
-				backgroundColor: 'rgba(33,33,33,1)',
-				borderRadius:0,
-				padding:10,
-				textStyle: {
-					color: '#fff',
-					fontStyle: 'normal',
-					fontWeight: 'normal',
-					fontFamily: "'Roboto', sans-serif",
-					fontSize: 12
-				}	
-			},
-			legend: {
-				show:false
-			},
-			toolbox: {
-				show : false,
-			},
-			calculable : true,
-			itemStyle: {
-				 normal: {
-					 shadowBlur: 5,
-					 shadowColor: 'rgba(0, 0, 0, 0.5)'
-				 }
-			},
-			series : [
-				{
-					name:'Advertising',
-					type:'pie',
-					radius : '70%',
-					center : ['50%', '50%'],
-					roseType : '',
-					color: ['#119dd2', '#d36ee8', '#667add'],
-					label: {
-						normal: {
-							fontFamily: "'Roboto', sans-serif",
-							fontSize: 11
-						}
-					},
-					data:[
-                        {value:deceased, name:'deceased'},
-						{value:recovered, name:'recovered'},
-						{value:infected, name:'infected'},
-						
-					].sort(function (a, b) { return a.value - b.value; }),
-				},
-			],
-			animationType: 'scale',
-			animationEasing: 'elasticOut',
-			animationDelay: function (idx) {
-				return Math.random() * 1000;
-			}	
-		};
-		eChart_3.setOption(option3);
-		eChart_3.resize();
-	}
-}
+	
 /*****E-Charts function end*****/
 
 /*****Sparkline function start*****/
