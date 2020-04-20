@@ -3,7 +3,6 @@
 
 // This method is to check if a state has counties in the database and if so, the names and ids of them
 
-
     fetch("https://maanuj-vora.github.io/Bing-COVID-19-Current-Data/currentData.json")
         .then(response => response.json())
         .then(data => {
@@ -57,7 +56,13 @@
                         }   
                 }
             }
-            
+            $(document).ready(function () {
+$('#listTable').DataTable({
+"scrollY": "300px",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
         });
 
 
@@ -797,4 +802,5 @@ $(window).on("resize", function () {
 sparklineLogin();
 echartsConfig();
 /*****Function Call end*****/
+
 
