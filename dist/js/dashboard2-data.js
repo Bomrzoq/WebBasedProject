@@ -78,7 +78,13 @@ $(document).ready(function(){
 
 /*****E-Charts function start*****/
 var echartsConfig = function() { 
-	if( $('#e_chart_1').length > 0 ){
+	
+       //Get Today Date
+    var nowDate = new Date(); 
+    var date = nowDate.getFullYear()+'-'+(nowDate.getMonth()+1)+'-'+(nowDate.getDate()-1); 
+    
+    
+    if( $('#e_chart_1').length > 0 ){
 		var eChart_1 = echarts.init(document.getElementById('e_chart_1'));
 		var dataBJ = [
 			[55,9,56,0.46,18,6,1],
@@ -293,24 +299,46 @@ var echartsConfig = function() {
 		eChart_1.resize();
 	}
 	if( $('#e_chart_2').length > 0 ){
+        
+        
         var infected=0;
         var recovered=0;
         var deceased=0;
-            
+        
+        var inf_cases = document.getElementById('inf-cases');
+        var rec_cases = document.getElementById('rec-cases');
+        var dec_cases = document.getElementById('dec-cases');
+        var Total_cases = document.getElementById('Total-cases');
+        
         var element = document.getElementById("stats");
-      var xhttp = new XMLHttpRequest();
+        var xhttp = new XMLHttpRequest();
+        
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) 
+        
         {
             var result = JSON.parse(this.responseText);
-            infected = result.infected;
-            recovered = result.recovered;
-            deceased = result.deceased;
-            console.log("Infected: "+infected+", recovered: "+recovered+" Decesed: "+deceased);
+            
+            for(var i = 0 ; i < result.China.length ; i++){
+		   //Get Results of Today's Date
+			if(result.China[i].date == date){
+                
+			infected = result.China[i].confirmed;
+			deceased = result.China[i].deaths;
+			recovered = result.China[i].recovered;
+               
+		}
+
+            };
+            
             $(".e_chart_3").load(echartsConfig);
 
+        inf_cases.innerHTML = infected + " cases";
+        rec_cases.innerHTML = recovered + " cases";
+        dec_cases.innerHTML = deceased + " cases";
+            
+        Total_cases.innerHTML = parseInt(deceased) + parseInt(recovered) + parseInt(infected) ;
         
-         
         }
         
 		var eChart_2 = echarts.init(document.getElementById('e_chart_2'));
@@ -328,7 +356,7 @@ var echartsConfig = function() {
 					type:'pie',
 					selectedMode: 'single',
 					radius: [0, '70%'],
-					color: ['#d36ee8', '#119dd2', '#667add'],
+					color: ['red', 'white', 'orange'],
 					label: {
 						normal: {
 							show:true,
@@ -336,18 +364,24 @@ var echartsConfig = function() {
 					},
 
 					data:[
-						{value:deceased, name:'deceased'},
-						{value:recovered, name:'recovered'},
-                            {value:infected, name:'infected'}
+						{value:deceased, name:'Death Cases'},
+						{value:recovered, name:'Recovered Cases'},
+                        {value:infected, name:'Confirmed Cases'}
 					]
 				},
 				
 			]
 		};
-		eChart_2.setOption(option1);
+		
+          
+          
+          
+        eChart_2.setOption(option1);
 		eChart_2.resize();
-           };
-          xhttp.open("GET","https://api.apify.com/v2/key-value-stores/x4iHxk7TVGI7UxFv6/records/LATEST?disableRedirect=true", true);
+           
+      
+      };
+          xhttp.open("GET","https://pomber.github.io/covid19/timeseries.json", true);
           xhttp.send();
         }
 	if( $('#e_chart_3').length > 0 ){
