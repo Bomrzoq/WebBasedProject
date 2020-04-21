@@ -398,9 +398,7 @@ var echartsConfig = function() {
         inf_cases.innerHTML = infected + " cases";
         rec_cases.innerHTML = recovered + " cases";
         dec_cases.innerHTML = deceased + " cases";
-            
-        Total_cases.innerHTML = parseInt(deceased) + parseInt(recovered) + parseInt(infected) ;
-        
+                    
         }
         
 		var eChart_2 = echarts.init(document.getElementById('e_chart_2'));
