@@ -102,7 +102,9 @@ function printTable(){
 				
 
 				if(Citydata.areas[7].areas[i].displayName == SearchByCityName){
-					console.log(Citydata.areas[7].areas[i].totalDeaths + "people died");
+					console.log(Citydata.areas[7].areas[i].totalDeaths + "  totalDeaths");
+					console.log(Citydata.areas[7].areas[i].totalConfirmed + "  totalConfirmed");
+					console.log(Citydata.areas[7].areas[i].totalRecovered + "  totalRecovered");
 					//// here break >.>
                         var compare;
                            
