@@ -1,9 +1,22 @@
 
-/*Dashboard2 Init*/
+/*Dashboard2 Init*/ 
+$('#listTable').dataTable( {
+  "columns": [
+    { "searchable": true },
+    'displayName',
+    'totalConfirmed',
+    'totalDeaths',
+    'totalRecovered',
+      'lastUpdated'
+  ]
+} );
+
+
 
 // This method is to check if a state has counties in the database and if so, the names and ids of them
 
     fetch("https://maanuj-vora.github.io/Bing-COVID-19-Current-Data/currentData.json")
+
         .then(response => response.json())
         .then(data => {
             var id = data["id"];
@@ -12,57 +25,32 @@
             for(i = 0 ; i < (data["areas"].length) ; i ++){
                 var go = (data['areas'][i]["id"] === "chinamainland");
                 if(go){
-                        var count = 200;
+                    
                         for(j = 0 ; j < 30;j++){
-                           var compare;
-                           var name = data["areas"][i]["areas"][j]["displayName"];
-                            var tableDisplayName = document.getElementById((count++)+"");
-                            compare = name!= null;
-                            if(compare == true)
-                           tableDisplayName.innerHTML = name ;
-                            else    tableDisplayName.innerHTML = "No Data";
+                            var name = data["areas"][i]["areas"][j]["displayName"];
+                             var confirmed = data["areas"][i]["areas"][j]["totalConfirmed"];
+                             var deaths = data["areas"][i]["areas"][j]["totalDeaths"];
+                             var recover = data["areas"][i]["areas"][j]["totalRecovered"];
                             
-                            var confirmed = data["areas"][i]["areas"][j]["totalConfirmed"];
-                             var tableTotalConfirmed = document.getElementById((count++)+"");
-                            compare = confirmed != null;
-                            if(compare == true){
-                                  tableTotalConfirmed.innerHTML = confirmed;
-                            }
-                          
-                            else {   tableTotalConfirmed.innerHTML = "No Data";}
-
-                            var deaths = data["areas"][i]["areas"][j]["totalDeaths"];
-                             var tableTotalDeaths = document.getElementById((count++)+"");
-                            compare = deaths != null;
-                            if(compare == true)
-                            tableTotalDeaths.innerHTML = deaths;
-                            else    tableTotalDeaths.innerHTML = "No Data";
+                              var dateUpdate = data["areas"][i]["areas"][j]["lastUpdated"];
+                             var date = new Date(dateUpdate);
                             
-                            var recover = data["areas"][i]["areas"][j]["totalRecovered"];
-                             var tableTotalRecovered = document.getElementById((count++)+"");
-                            compare = recover != null;
-                            if(compare == true)
-                            tableTotalRecovered.innerHTML= recover;
-                            else    tableTotalRecovered.innerHTML = "No Data";
-                            
-                            var dateUpdate = data["areas"][i]["areas"][j]["lastUpdated"];
-                             var tableLastUpdated = document.getElementById((count++)+"");
-                            compare = dateUpdate != null;
-                            var date = new Date(dateUpdate);
-                            if(compare == true)
-                            tableLastUpdated.innerHTML = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate() ;
-                            else    tableLastUpdated.innerHTML = "No Data";
+                          var table =  $('#listTable').DataTable();
+ 
+                        table.row.add( {
+                                "displayName": name,
+                                "totalConfirmed":   confirmed,
+                                "totalDeaths":    deaths,
+                                "totalRecovered": recover,
+                                "lastUpdated":     date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate(),
+                            } ).draw();
+                      
+                  
                             
                         }   
                 }
             }
-            $(document).ready(function () {
-$('#listTable').DataTable({
-"scrollY": "300px",
-"scrollCollapse": true,
-});
-$('.dataTables_length').addClass('bs-select');
-});
+  
         });
 
 
@@ -81,8 +69,11 @@ $(document).ready(function(){
 //Function //
 
 function printTable(){
+var table = $('#listTable').DataTable();
+ 
+table.clear().draw();
 
-
+   
 	var cityxxx = document.getElementById("city-dropdown");
 	console.log(cityxxx.options[cityxxx.selectedIndex].text);
 	const SearchByCityName = cityxxx.options[cityxxx.selectedIndex].text ; 
@@ -91,7 +82,7 @@ function printTable(){
 
 	const Cityrequest = new XMLHttpRequest();
 	Cityrequest.open('GET', JSONurl, true);
-    console.log(Citydata.areas[7].areas.length);
+
 	Cityrequest.onload = function(){
 
 		if (Cityrequest.status === 200) {
@@ -107,51 +98,15 @@ function printTable(){
 					console.log(Citydata.areas[7].areas[i].totalRecovered + "  totalRecovered");
 					//// here break >.>
                         var compare;
-                           
-                                console.log(Citydata.areas[7].areas[i].displayName);
-                            var tableDisplayName = document.getElementById((count++)+"");
-                            compare = name!= null;
-                            if(compare == true)
-                           tableDisplayName.innerHTML = Citydata.areas[7].areas[i].displayName ;
-                            else    tableDisplayName.innerHTML = "No Data";
-                            
-                            
-                             var tableTotalConfirmed = document.getElementById((count++)+"");
-                            compare = confirmed != null;
-                            if(compare == true){
-                                  tableTotalConfirmed.innerHTML = Citydata.areas[7].areas[i].totalConfirmed;
-                            }
-                          
-                            else {   tableTotalConfirmed.innerHTML = "No Data";}
-                            
-                             var tableTotalDeaths = document.getElementById((count++)+"");
-                            compare = deaths != null;
-                            if(compare == true)
-                            tableTotalDeaths.innerHTML = Citydata.areas[7].areas[i].totalDeaths;
-                            else    tableTotalDeaths.innerHTML = "No Data";
-                            
-                            
-                             var tableTotalRecovered = document.getElementById((count++)+"");
-                            compare = recover != null;
-                            if(compare == true)
-                            tableTotalRecovered.innerHTML= Citydata.areas[7].areas[i].totalRecovered;
-                            else    tableTotalRecovered.innerHTML = "No Data";
-                            
-                            
-                             var tableLastUpdated = document.getElementById((count++)+"");
-                            compare = dateUpdate != null;
-                            var date = new Date(Citydata.areas[7].areas[i].totalRecovered);
-                            if(compare == true)
-                            tableLastUpdated.innerHTML = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate() ;
-                            else    tableLastUpdated.innerHTML = "No Data"
+                        
                        var table = $('#listTable').DataTable();
  
                         table.row.add( {
-                                "CITY":       "Tiger Nixon",
-                                "TOTAL CONFIRMED":   "System Architect",
-                                "TOTAL ":     "$3,120",
-                                "start_date": "2011/04/25",
-                                "office":     "Edinburgh",
+                                "displayName": Citydata.areas[7].areas[i].displayName,
+                                "totalConfirmed":   Citydata.areas[7].areas[i].totalConfirmed,
+                                "totalDeaths":    Citydata.areas[7].areas[i].totalDeaths,
+                                "totalRecovered": Citydata.areas[7].areas[i].totalRecovered,
+                                "lastUpdated":     Citydata.areas[7].areas[i].lastUpdated,
                             } ).draw();
 					///print this value on the table  // totalConfirmed // totalDeaths // totalRecovered
 					break;
@@ -167,7 +122,7 @@ function printTable(){
 }
 
 
-
+                      
 /*****Ready function end*****/
 
 
