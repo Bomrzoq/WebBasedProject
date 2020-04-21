@@ -106,8 +106,22 @@ function printTable(){
 					console.log(Citydata.areas[7].areas[i].totalConfirmed + "  totalConfirmed");
 					console.log(Citydata.areas[7].areas[i].totalRecovered + "  totalRecovered");
 					//// here break >.>
+					var date11 = Citydata.areas[7].areas[i].lastUpdated ; 
 
-					///print this value on the table  // totalConfirmed // totalDeaths // totalRecovered
+					var table11 = document.getElementById('listTable');
+					table11.innerHTML = "";
+					var rowA = table11.insertRow(0);
+					var cell1 = rowA.insertCell(0);
+					var cell2 = rowA.insertCell(1);
+					var cell3 = rowA.insertCell(2);
+					var cell4 = rowA.insertCell(3);
+					var cell5 = rowA.insertCell(4);
+					cell1.innerHTML = SearchByCityName +"" ; 
+					cell2.innerHTML = Citydata.areas[7].areas[i].totalConfirmed + " ";
+					cell3.innerHTML = Citydata.areas[7].areas[i].totalDeaths + " "; 
+					cell4.innerHTML = Citydata.areas[7].areas[i].totalRecovered;
+					cell5.innerHTML = date11.substring(0,9);
+					///print this value on the table  // totalConfirmed // totalDeaths // totalRecovered // lastUpdated // displayName
 					break;
 				}
 		
