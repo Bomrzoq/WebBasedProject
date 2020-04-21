@@ -74,7 +74,69 @@ $(document).ready(function(){
 			"iDisplayLength": 4
 		});
 });
+
+
+
+
+//Function //
+
+function printTable(a){
+
+    console.log(a);
+}
+
+
+
 /*****Ready function end*****/
+
+
+
+
+
+
+let dropdown = document.getElementById('city-dropdown');
+dropdown.length = 0;
+
+let defaultOption = document.createElement('option');
+defaultOption.text = 'Choose City';
+
+dropdown.add(defaultOption);
+dropdown.selectedIndex = 0;
+
+const url = 'https://maanuj-vora.github.io/Bing-COVID-19-Current-Data/currentData.json';
+
+const request = new XMLHttpRequest();
+request.open('GET', url, true);
+
+request.onload = function() {
+  if (request.status === 200) {
+    const data = JSON.parse(request.responseText);
+    let option;
+      
+    for (let i = 0; i < data.areas.length; i++) {
+      option = document.createElement('option');
+      option.text = data.areas[7].areas[i].displayName;
+      option.value = data.areas[7].areas[i].id;
+      dropdown.add(option);
+
+    }
+   } else {
+    // Reached the server, but it returned an error
+  }   
+}
+
+request.onerror = function() {
+  console.error('An error occurred fetching the JSON from ' + url);
+};
+
+request.send();
+    
+    
+    
+    
+
+
+
 
 /*****E-Charts function start*****/
 var echartsConfig = function() { 

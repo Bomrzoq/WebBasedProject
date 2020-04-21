@@ -44,73 +44,7 @@
             <div class="container-fluid pt-25">
 				<!-- Row -->
 				<div class="row">
-					<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
-						<div class="panel panel-default card-view pt-0">
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body pa-0">
-									<div class="sm-data-box bg-white">
-										<div class="container-fluid">
-											<div class="row">
-												<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
-													<span class="txt-dark block counter">$<span class="counter-anim">15,678</span></span>
-													<span class="block"><span class="weight-500 uppercase-font txt-grey font-13">growth</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
-												</div>
-												<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
-													<div id="sparkline_4" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
-												</div>
-											</div>	
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="panel panel-default card-view pt-0">
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body pa-0">
-									<div class="sm-data-box bg-white">
-										<div class="container-fluid">
-											<div class="row">
-												<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
-													<span class="txt-dark block counter"><span id="Total-cases" class="counter-anim"></span></span>
-													<span class="block"><span class="weight-500 uppercase-font txt-grey font-13">Total Cases</span></span>
-												</div>
-												<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
-													<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
-												</div>
-											</div>	
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="panel panel-default card-view">
-							<div class="panel-wrapper collapse in">
-                                <div class="panel-body sm-data-box-1">
-									<span class="uppercase-font weight-500 font-14 block text-center txt-dark">success index this year</span>	
-									<div class="cus-sat-stat weight-500 txt-primary text-center mt-5">
-										<span class="counter-anim">65</span><span>%</span>
-									</div>
-									<div class="progress-anim mt-20">
-										<div class="progress">
-											<div class="progress-bar progress-bar-primary wow animated progress-animated" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-									<ul class="flex-stat mt-5">
-										<li class="half-width">
-											<span class="block">joined shcool</span>
-											<span class="block txt-dark weight-500 font-15">
-												<i class="zmdi zmdi-trending-up txt-success font-20 mr-10"></i>52
-											</span>
-										</li>
-										<li class="half-width">
-											<span class="block">dropped shcool</span>
-											<span class="block txt-dark weight-500 font-15">+14.29</span>
-										</li>
-									</ul>
-								</div>
-                            </div>
-                        </div>
-					</div>
+				
 					<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                        <div class="panel panel-default card-view panel-refresh">
 							<div class="refresh-container">
@@ -217,7 +151,8 @@
 				<!-- Row -->
                 	
 						
-                                                                                              
+                      								<div class="clearfix"></div>
+                                                                        
                                                                                               
 				    <div data-brackets-id="204458" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 						<div data-brackets-id="204459" class="panel panel-default card-view panel-refresh">
@@ -226,7 +161,7 @@
 							</div>
 							<div data-brackets-id="204462" class="panel-heading">
 								<div data-brackets-id="204463" class="pull-left">
-									<h6 data-brackets-id="204464" class="panel-title txt-dark">Stats Per city</h6>
+                                    <select onchange="printTable(this.value)" data-brackets-id="204464" class="panel-heading" id="city-dropdown" name="cities"></select>
 								</div>
 								<div data-brackets-id="204465" class="pull-right">
 									<a data-brackets-id="204466" href="#" class="pull-left inline-block refresh mr-15">
@@ -246,6 +181,9 @@
 								</div>
 								<div data-brackets-id="204483" class="clearfix"></div>
 							</div>
+							
+							
+							
 							<div data-brackets-id="204484" class="panel-wrapper collapse in">
 								<div data-brackets-id="204485" class="panel-body row pa-0">
 									<div data-brackets-id="204486" class="table-wrap">
@@ -492,8 +430,9 @@
                                                                                                                        
                                                                                                                        
 					
-			<!-- Footer --><div class="clearfix"></div>
-		
+			<!-- Footer -->
+       <div class="clearfix"></div>
+		   </div></div></div>
 			<!-- /Footer -->
 			
 	
@@ -566,6 +505,7 @@
 	<!-- Init JavaScript -->
 	<script src="dist/js/init.js"></script>
 	<script src="dist/js/dashboard2-data.js"></script>
+         
 </body>
 
 </html>
