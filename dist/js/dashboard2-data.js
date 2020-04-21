@@ -91,7 +91,7 @@ function printTable(){
 
 	const Cityrequest = new XMLHttpRequest();
 	Cityrequest.open('GET', JSONurl, true);
-
+    console.log(Citydata.areas[7].areas.length);
 	Cityrequest.onload = function(){
 
 		if (Cityrequest.status === 200) {
@@ -104,7 +104,53 @@ function printTable(){
 				if(Citydata.areas[7].areas[i].displayName == SearchByCityName){
 					console.log(Citydata.areas[7].areas[i].totalDeaths + "people died");
 					//// here break >.>
-
+                        var compare;
+                           
+                                console.log(Citydata.areas[7].areas[i].displayName);
+                            var tableDisplayName = document.getElementById((count++)+"");
+                            compare = name!= null;
+                            if(compare == true)
+                           tableDisplayName.innerHTML = Citydata.areas[7].areas[i].displayName ;
+                            else    tableDisplayName.innerHTML = "No Data";
+                            
+                            
+                             var tableTotalConfirmed = document.getElementById((count++)+"");
+                            compare = confirmed != null;
+                            if(compare == true){
+                                  tableTotalConfirmed.innerHTML = Citydata.areas[7].areas[i].totalConfirmed;
+                            }
+                          
+                            else {   tableTotalConfirmed.innerHTML = "No Data";}
+                            
+                             var tableTotalDeaths = document.getElementById((count++)+"");
+                            compare = deaths != null;
+                            if(compare == true)
+                            tableTotalDeaths.innerHTML = Citydata.areas[7].areas[i].totalDeaths;
+                            else    tableTotalDeaths.innerHTML = "No Data";
+                            
+                            
+                             var tableTotalRecovered = document.getElementById((count++)+"");
+                            compare = recover != null;
+                            if(compare == true)
+                            tableTotalRecovered.innerHTML= Citydata.areas[7].areas[i].totalRecovered;
+                            else    tableTotalRecovered.innerHTML = "No Data";
+                            
+                            
+                             var tableLastUpdated = document.getElementById((count++)+"");
+                            compare = dateUpdate != null;
+                            var date = new Date(Citydata.areas[7].areas[i].totalRecovered);
+                            if(compare == true)
+                            tableLastUpdated.innerHTML = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate() ;
+                            else    tableLastUpdated.innerHTML = "No Data"
+                       var table = $('#listTable').DataTable();
+ 
+                        table.row.add( {
+                                "CITY":       "Tiger Nixon",
+                                "TOTAL CONFIRMED":   "System Architect",
+                                "TOTAL ":     "$3,120",
+                                "start_date": "2011/04/25",
+                                "office":     "Edinburgh",
+                            } ).draw();
 					///print this value on the table  // totalConfirmed // totalDeaths // totalRecovered
 					break;
 				}
@@ -116,8 +162,6 @@ function printTable(){
 
 	Cityrequest.send();
 
-
-	
 }
 
 
