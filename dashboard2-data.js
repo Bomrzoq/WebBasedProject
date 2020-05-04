@@ -80,60 +80,9 @@ $(document).ready(function(){
 
 //Function //
 
-function printTable(){
+function printTable(a){
 
-
-	var cityxxx = document.getElementById("city-dropdown");
-	console.log(cityxxx.options[cityxxx.selectedIndex].text);
-	const SearchByCityName = cityxxx.options[cityxxx.selectedIndex].text ; 
-
-	const JSONurl = 'https://maanuj-vora.github.io/Bing-COVID-19-Current-Data/currentData.json';
-
-	const Cityrequest = new XMLHttpRequest();
-	Cityrequest.open('GET', JSONurl, true);
-
-	Cityrequest.onload = function(){
-
-		if (Cityrequest.status === 200) {
-			const Citydata = JSON.parse(Cityrequest.responseText);
-			
-			for (var i = 0; i < Citydata.areas[7].areas.length; i++) {
-				
-				
-
-				if(Citydata.areas[7].areas[i].displayName == SearchByCityName){
-					console.log(Citydata.areas[7].areas[i].totalDeaths + "  totalDeaths");
-					console.log(Citydata.areas[7].areas[i].totalConfirmed + "  totalConfirmed");
-					console.log(Citydata.areas[7].areas[i].totalRecovered + "  totalRecovered");
-					//// here break >.>
-					var date11 = Citydata.areas[7].areas[i].lastUpdated ; 
-
-					var table11 = document.getElementById('listTable');
-					table11.innerHTML = "";
-					var rowA = table11.insertRow(0);
-					var cell1 = rowA.insertCell(0);
-					var cell2 = rowA.insertCell(1);
-					var cell3 = rowA.insertCell(2);
-					var cell4 = rowA.insertCell(3);
-					var cell5 = rowA.insertCell(4);
-					cell1.innerHTML = SearchByCityName +"" ; 
-					cell2.innerHTML = Citydata.areas[7].areas[i].totalConfirmed + " ";
-					cell3.innerHTML = Citydata.areas[7].areas[i].totalDeaths + " "; 
-					cell4.innerHTML = Citydata.areas[7].areas[i].totalRecovered;
-					cell5.innerHTML = date11.substring(0,9);
-					///print this value on the table  // totalConfirmed // totalDeaths // totalRecovered // lastUpdated // displayName
-					break;
-				}
-		
-			}
-		}
-
-	}
-
-	Cityrequest.send();
-
-
-	
+    console.log(a);
 }
 
 
@@ -164,10 +113,10 @@ request.onload = function() {
     const data = JSON.parse(request.responseText);
     let option;
       
-    for (var i = 0; i < data.areas[7].areas.length; i++) {
+    for (let i = 0; i < data.areas.length; i++) {
       option = document.createElement('option');
-	  option.text = data.areas[7].areas[i].displayName;
-	  option.value = data.areas[7].areas[i].id;
+      option.text = data.areas[7].areas[i].displayName;
+      option.value = data.areas[7].areas[i].id;
       dropdown.add(option);
 
     }
@@ -179,8 +128,6 @@ request.onload = function() {
 request.onerror = function() {
   console.error('An error occurred fetching the JSON from ' + url);
 };
-
-
 
 request.send();
     
